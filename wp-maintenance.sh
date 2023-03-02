@@ -36,11 +36,12 @@ while test $# -gt 0; do
         if test $# -gt 0; then
             re='^[1-9]+$'
             if ! [[ $1 =~ $re ]] ; then
-                echo "error: Duration must be an integer greater than zero" >&2;
+                echo "error: Duration must be an integer greater than zero";
                 exit 1
+            else
+                activate_maintenance $1
+                exit 0
             fi
-            activate_maintenance $1
-            break
         else
             echo "no duration specified"
             exit 1
@@ -49,7 +50,7 @@ while test $# -gt 0; do
         ;;
     -d|deactivate)
         deactivate_maintenance
-        break
+        exit 0
         ;;
     *)
         print_usage
